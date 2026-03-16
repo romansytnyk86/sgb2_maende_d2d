@@ -124,12 +124,11 @@ def duplicate_project(
 
         # Build config and start job
         config = DuplicationConfig(
-            project_name=final_name,
-            description=description or f"Backup of '{source_project_name}'",
+            import_description=description or f"Backup of '{source_project_name}'",
         )
 
         logger.info("  Starting duplication job (this may take several minutes)...")
-        job = source.duplicate(config=config)
+        job = source.duplicate(target_name=final_name, duplication_config=config)
         logger.info(f"  Job ID: {job.id} | Initial status: {job.status}")
 
         # Poll to completion

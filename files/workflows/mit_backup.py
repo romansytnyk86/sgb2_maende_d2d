@@ -83,20 +83,11 @@ def run(cfg: AppConfig, backup_month: str) -> bool:
             logger.error("  Aborting workflow due to step failure.")
             return _summary(steps_ok, start)
 
-        # ── Step 2: Unload main project ───────────────────────────────
-        # Takes the project offline. Required before duplication can start.
-        logger.info("\n[Step 2/7] Unload main project")
-        ok = unload_project(conn, project)
-        steps_ok.append(("Unload project", ok))
-        if not ok:
-            logger.error("  Aborting workflow due to step failure.")
-            return _summary(steps_ok, start)
-
-        # ── Step 3: Duplicate project (create backup) ─────────────────
+        # ── Step 2: Duplicate project (create backup) ─────────────────
         # Creates a full copy of the main project named e.g. "SGB II MaEnde 202512".
         # This is an async server-side operation that is polled until complete.
         # Replaces: ProjectDuplicate.exe + D_SGB_II_MaEnde_D2D.xml
-        logger.info("\n[Step 3/7] Duplicate project (create backup)")
+        logger.info("\n[Step 2/7] Duplicate project (create backup)")
         ok = duplicate_project(
             conn,
             source_project_name=project,
@@ -104,6 +95,15 @@ def run(cfg: AppConfig, backup_month: str) -> bool:
             description=f"Backup of '{project}' ({backup_month})",
         )
         steps_ok.append(("Duplicate project (backup)", ok))
+        if not ok:
+            logger.error("  Aborting workflow due to step failure.")
+            return _summary(steps_ok, start)
+
+        # ── Step 3: Unload main project ───────────────────────────────
+        # Takes the project offline. Required before updating the DB connection.
+        logger.info("\n[Step 3/7] Unload main project")
+        ok = unload_project(conn, project)
+        steps_ok.append(("Unload project", ok))
         if not ok:
             logger.error("  Aborting workflow due to step failure.")
             return _summary(steps_ok, start)

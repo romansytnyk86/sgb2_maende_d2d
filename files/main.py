@@ -127,8 +127,8 @@ def print_dry_run_mit(cfg, backup_month: str) -> None:
     print()
     print("  Steps that would be executed:")
     print(f"    1. Disconnect users from '{cfg.project.project_name}'")
-    print(f"    2. Unload '{cfg.project.project_name}'")
-    print(f"    3. Duplicate '{cfg.project.project_name}' -> '{backup_project}'")
+    print(f"    2. Duplicate '{cfg.project.project_name}' -> '{backup_project}'")
+    print(f"    3. Unload '{cfg.project.project_name}'")
     print(f"    4. Alter DB connection '{cfg.project.db_connection_name}'"
           f" -> catalog '{cfg.project.db_catalog_name}'")
     print(f"    5. Load '{cfg.project.project_name}'")
