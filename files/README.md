@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Edit `credentials.env`:
+Edit `deployment.env`:
 
 ```env
 MSTR_BASE_URL=http://your-server:8080/MicroStrategyLibrary
@@ -56,7 +56,7 @@ python main.py mit-backup --backup-month 202512 --dry-run
 
 ### Custom credentials file
 ```bash
-python main.py ohne-backup --env /path/to/credentials.env
+python main.py ohne-backup --env /path/to/deployment.env
 ```
 
 ## Project structure
@@ -65,7 +65,7 @@ python main.py ohne-backup --env /path/to/credentials.env
 sgb2_maende/
 ├── main.py                  # CLI entry point
 ├── config.py                # Credentials/config loader
-├── credentials.env          # Connection settings (edit this)
+├── deployment.env          # Connection settings (edit this)
 ├── requirements.txt
 │
 ├── mstr/
@@ -87,7 +87,7 @@ sgb2_maende/
 
 Every run writes to both the **console** (clean output, INFO level) and a **log file** (detailed, DEBUG level).
 
-The log file location is set by `LOG_DIR` and `LOG_FILE_NAME` in `credentials.env`. Default: `LOG_SGB II MaEnde.txt` in the same folder.
+The log file location is set by `LOG_DIR` and `LOG_FILE_NAME` in `deployment.env`. Default: `LOG_SGB II MaEnde.txt` in the same folder.
 
 Each run is clearly separated in the file:
 ```

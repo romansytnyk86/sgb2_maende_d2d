@@ -46,6 +46,7 @@ logs/
 
 # Credentials and sensitive files
 credentials.env
+deployment.env
 *.env
 .env.local
 .env.production

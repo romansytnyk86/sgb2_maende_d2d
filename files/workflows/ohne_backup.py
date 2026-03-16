@@ -7,7 +7,7 @@ When to use:
     Use this when you only need to redeploy the project (e.g. switch the DB
     catalog for a new month) WITHOUT creating a backup copy first.
 
-    Command: python main.py ohne-backup [--env credentials.env]
+    Command: python main.py ohne-backup [--env deployment.env]
 
 Steps:
     1. Disconnect all active users from the project
@@ -15,7 +15,7 @@ Steps:
     3. Update the DB connection catalog (ALTER DBCONNECTION)
     4. Reload the project so users can connect again
 
-Settings used from credentials.env:
+Settings used from deployment.env:
     MSTR_PROJECT_NAME       - the project to redeploy
     DB_CONNECTION_NAME      - which datasource connection to update
     DB_CATALOG_NAME         - the new catalog name to set
@@ -77,7 +77,7 @@ def run(cfg: AppConfig) -> bool:
         # ── Step 3: Alter DB connection catalog ───────────────────────
         # Updates the CATALOG in the datasource connection string.
         # Equivalent to: ALTER DBCONNECTION "..." CATALOG "..."
-        # Values come from DB_CONNECTION_NAME and DB_CATALOG_NAME in credentials.env
+        # Values come from DB_CONNECTION_NAME and DB_CATALOG_NAME in deployment.env
         logger.info("\n[Step 3/4] Alter DB connection catalog")
         ok = alter_db_connection_catalog(
             conn,

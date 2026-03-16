@@ -13,7 +13,7 @@
 # Docs: https://github.com/MicroStrategy/mstrio-py
 mstrio-py>=11.3.0
 
-# Loads credentials from credentials.env into the application
+# Loads credentials from deployment.env into the application
 python-dotenv>=1.0.0
 
 # ==============================================================================

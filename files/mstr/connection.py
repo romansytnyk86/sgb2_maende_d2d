@@ -26,7 +26,7 @@ def mstr_connection(cfg: MstrConfig, project_name: Optional[str] = None):
     does not mask the original workflow error.
 
     Args:
-        cfg:          MstrConfig (from credentials.env Section 1)
+        cfg:          MstrConfig (from deployment.env Section 1)
         project_name: Optional project context. Leave None for server-level
                       operations (load/unload, duplication, security roles).
     """

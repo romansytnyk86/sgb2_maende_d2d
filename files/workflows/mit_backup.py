@@ -10,7 +10,7 @@ When to use:
     The backup project gets all user access removed so end users cannot
     accidentally open it.
 
-    Command: python main.py mit-backup --backup-month 202512 [--env credentials.env]
+    Command: python main.py mit-backup --backup-month 202512 [--env deployment.env]
     The --backup-month value is appended to BACKUP_PROJECT_BASE_NAME, e.g.:
         "SGB II MaEnde" + "202512" -> "SGB II MaEnde 202512"
 
@@ -23,7 +23,7 @@ Steps:
     6. Load the backup project
     7. Revoke all user access from the backup project
 
-Settings used from credentials.env:
+Settings used from deployment.env:
     MSTR_PROJECT_NAME           - the main project to redeploy
     BACKUP_PROJECT_BASE_NAME    - base name for the backup project
     DB_CONNECTION_NAME          - which datasource connection to update
@@ -52,7 +52,7 @@ def run(cfg: AppConfig, backup_month: str) -> bool:
     Execute the with-backup deployment workflow.
 
     Args:
-        cfg:          All settings loaded from credentials.env
+        cfg:          All settings loaded from deployment.env
         backup_month: The month suffix passed via --backup-month (e.g. "202512")
 
     Returns True if all steps succeeded, False if any step failed.
@@ -111,7 +111,7 @@ def run(cfg: AppConfig, backup_month: str) -> bool:
         # ── Step 4: Alter DB connection catalog ───────────────────────
         # Updates the CATALOG in the datasource connection string on the main project.
         # Equivalent to: ALTER DBCONNECTION "..." CATALOG "..."
-        # Values come from DB_CONNECTION_NAME and DB_CATALOG_NAME in credentials.env
+        # Values come from DB_CONNECTION_NAME and DB_CATALOG_NAME in deployment.env
         logger.info("\n[Step 4/7] Alter DB connection catalog")
         ok = alter_db_connection_catalog(
             conn,
@@ -145,11 +145,11 @@ def run(cfg: AppConfig, backup_month: str) -> bool:
         # ── Step 7: Revoke security roles from backup project ─────────
         # Removes all user group access from the backup project so end users
         # cannot accidentally connect to it.
-        # Pairs to revoke come from REVOKE_ROLE_GROUP_PAIRS in credentials.env.
+        # Pairs to revoke come from REVOKE_ROLE_GROUP_PAIRS in deployment.env.
         # Equivalent to: REVOKE SECURITY ROLE "..." FROM GROUP "..." FROM PROJECT "..."
         logger.info("\n[Step 7/7] Revoke security roles from backup project")
         if not cfg.project.revoke_role_group_pairs:
-            logger.warning("  [WARN] REVOKE_ROLE_GROUP_PAIRS is empty in credentials.env — skipping")
+            logger.warning("  [WARN] REVOKE_ROLE_GROUP_PAIRS is empty in deployment.env — skipping")
             steps_ok.append(("Revoke security roles", True))
         else:
             all_revoked = True

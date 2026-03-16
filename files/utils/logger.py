@@ -8,7 +8,7 @@ Provides two output channels that run simultaneously:
     - Clean format: just the message, no timestamp clutter
     - Suitable for watching a run interactively
 
-  LOG FILE (LOG_DIR/LOG_FILE_NAME from credentials.env):
+  LOG FILE (LOG_DIR/LOG_FILE_NAME from deployment.env):
     - Shows DEBUG and above (more detail than console)
     - Every line is timestamped and level-tagged
     - Appends to existing file so all runs are preserved in history
@@ -67,8 +67,8 @@ def setup_logger(log_dir: Path, log_file_name: str, command: str = "") -> loggin
     Call this once at the start of main.py before running any workflow.
 
     Args:
-        log_dir:       Directory for the log file (from LOG_DIR in credentials.env)
-        log_file_name: Log file name (from LOG_FILE_NAME in credentials.env)
+        log_dir:       Directory for the log file (from LOG_DIR in deployment.env)
+        log_file_name: Log file name (from LOG_FILE_NAME in deployment.env)
         command:       The CLI command being run (e.g. "ohne-backup"), used in
                        the run header/footer for easy scanning of the log history
 

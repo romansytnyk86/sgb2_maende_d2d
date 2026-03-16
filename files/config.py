@@ -1,8 +1,8 @@
 """
-config.py - Reads credentials.env and makes all settings available to the app.
+config.py - Reads deployment.env and makes all settings available to the app.
 
 YOU DO NOT NEED TO EDIT THIS FILE.
-All configuration is done in credentials.env.
+All configuration is done in deployment.env.
 """
 
 import sys
@@ -13,8 +13,8 @@ from typing import Optional
 from dotenv import dotenv_values
 
 
-# ── Data classes (internal representation of credentials.env) ─────────────────
-# These are filled automatically from credentials.env — do not edit here.
+# ── Data classes (internal representation of deployment.env) ─────────────────
+# These are filled automatically from deployment.env — do not edit here.
 
 @dataclass
 class MstrConfig:
@@ -65,7 +65,7 @@ def _require(key: str, value: Optional[str], env_file: str) -> str:
 
 def _parse_revoke_pairs(raw: str) -> list[tuple[str, str]]:
     """
-    Parse REVOKE_ROLE_GROUP_PAIRS from credentials.env into a list of tuples.
+    Parse REVOKE_ROLE_GROUP_PAIRS from deployment.env into a list of tuples.
 
     Input:  "Normale Benutzer|Everyone,Normale Benutzer|SGB II Projektzugriff"
     Output: [("Normale Benutzer", "Everyone"), ("Normale Benutzer", "SGB II Projektzugriff")]
@@ -84,9 +84,9 @@ def _parse_revoke_pairs(raw: str) -> list[tuple[str, str]]:
 
 # ── Public loader ─────────────────────────────────────────────────────────────
 
-def load_config(env_file: str = "credentials.env") -> AppConfig:
+def load_config(env_file: str = "deployment.env") -> AppConfig:
     """
-    Read the given credentials.env file and return a fully validated AppConfig.
+    Read the given deployment.env file and return a fully validated AppConfig.
 
     Called automatically by main.py — you do not need to call this yourself.
 

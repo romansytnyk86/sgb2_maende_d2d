@@ -40,9 +40,9 @@ def build_parser() -> argparse.ArgumentParser:
         epilog="""
 Examples:
   python main.py ohne-backup
-  python main.py ohne-backup --env credentials.local.env
+  python main.py ohne-backup --env deployment.local.env
   python main.py mit-backup --backup-month 202512
-  python main.py mit-backup --backup-month 202512 --env credentials.customer.env
+  python main.py mit-backup --backup-month 202512 --env deployment.customer.env
 
   # Preview steps without connecting:
   python main.py ohne-backup --dry-run
@@ -61,8 +61,8 @@ Examples:
     ohne.add_argument(
         "--env",
         metavar="FILE",
-        default="credentials.env",
-        help="Credentials file (default: credentials.env)",
+        default="deployment.env",
+        help="Credentials file (default: deployment.env)",
     )
     ohne.add_argument(
         "--dry-run",
@@ -82,8 +82,8 @@ Examples:
     mit.add_argument(
         "--env",
         metavar="FILE",
-        default="credentials.env",
-        help="Credentials file (default: credentials.env)",
+        default="deployment.env",
+        help="Credentials file (default: deployment.env)",
     )
     mit.add_argument(
         "--backup-month",

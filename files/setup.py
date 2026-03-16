@@ -25,7 +25,7 @@ FILE_MAP = {
     # Root files — stay in the project root
     "main.py":               ".",
     "config.py":             ".",
-    "credentials.env":       ".",
+    "deployment.env":       ".",
     "requirements.txt":      ".",
     "README.md":             ".",
     "run.bat":               ".",
@@ -146,7 +146,7 @@ def main():
         print("  [SUCCESS] All files are in place!")
         print()
         print("  Next steps:")
-        print("  1. Edit credentials.env with your server settings")
+        print("  1. Edit deployment.env with your server settings")
         print("  2. Install dependencies:")
         print("       pip install -r requirements.txt")
         print("  3. Preview without connecting:")

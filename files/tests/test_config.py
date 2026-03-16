@@ -72,7 +72,7 @@ class TestRequire:
 
 class TestLoadConfig:
     def test_loads_valid_env(self, tmp_path):
-        env_file = tmp_path / "credentials.env"
+        env_file = tmp_path / "deployment.env"
         env_file.write_text(
             "MSTR_BASE_URL=http://localhost:8080/MicroStrategyLibrary\n"
             "MSTR_USERNAME=Administrator\n"
@@ -97,7 +97,7 @@ class TestLoadConfig:
             load_config(str(tmp_path / "nonexistent.env"))
 
     def test_missing_required_field_exits(self, tmp_path):
-        env_file = tmp_path / "credentials.env"
+        env_file = tmp_path / "deployment.env"
         # MSTR_PASSWORD intentionally missing
         env_file.write_text(
             "MSTR_BASE_URL=http://localhost:8080/MicroStrategyLibrary\n"
@@ -110,7 +110,7 @@ class TestLoadConfig:
             load_config(str(env_file))
 
     def test_default_login_mode(self, tmp_path):
-        env_file = tmp_path / "credentials.env"
+        env_file = tmp_path / "deployment.env"
         # MSTR_LOGIN_MODE not set — should default to 1
         env_file.write_text(
             "MSTR_BASE_URL=http://localhost:8080/MicroStrategyLibrary\n"
@@ -124,7 +124,7 @@ class TestLoadConfig:
         assert cfg.mstr.login_mode == 1
 
     def test_backup_base_name_defaults_to_project_name(self, tmp_path):
-        env_file = tmp_path / "credentials.env"
+        env_file = tmp_path / "deployment.env"
         # BACKUP_PROJECT_BASE_NAME not set — should fall back to MSTR_PROJECT_NAME
         env_file.write_text(
             "MSTR_BASE_URL=http://localhost:8080/MicroStrategyLibrary\n"
@@ -138,7 +138,7 @@ class TestLoadConfig:
         assert cfg.project.backup_base_name == "SGB II MaEnde"
 
     def test_log_file_defaults_to_project_name(self, tmp_path):
-        env_file = tmp_path / "credentials.env"
+        env_file = tmp_path / "deployment.env"
         env_file.write_text(
             "MSTR_BASE_URL=http://localhost:8080/MicroStrategyLibrary\n"
             "MSTR_USERNAME=Administrator\n"
@@ -151,7 +151,7 @@ class TestLoadConfig:
         assert cfg.log.log_file_name == "LOG_My Project.txt"
 
     def test_empty_revoke_pairs(self, tmp_path):
-        env_file = tmp_path / "credentials.env"
+        env_file = tmp_path / "deployment.env"
         env_file.write_text(
             "MSTR_BASE_URL=http://localhost:8080/MicroStrategyLibrary\n"
             "MSTR_USERNAME=Administrator\n"
